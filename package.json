@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run server\" \"npm run server:auth\" \"ng serve\"",
+    "start": "concurrently \"npm run server\" \"ng serve\"",
     "build": "ng build",
     "test": "ng test",
     "lint": "./node_modules/.bin/nx lint && ng lint",

@@ -39,12 +39,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   login(email, password) {
-    this.authService.login(email, password)
-      .subscribe(result => {
-        // Store the token
-        this.authService.setToken(result['access_token']);
-        // Redirect to home
-        this.router.navigate(['']);
-      });
+    // Store the token
+    this.authService.setToken('you_are_golden');
+    // Redirect to home
+    this.router.navigate(['']);
+
+    // If we really wanted to log in...
+    // this.authService.login(email, password)
+    //   .subscribe(result => {
+    //     // Store the token
+    //     this.authService.setToken(result['access_token']);
+    //     // Redirect to home
+    //     this.router.navigate(['']);
+    //   });
   }
 }

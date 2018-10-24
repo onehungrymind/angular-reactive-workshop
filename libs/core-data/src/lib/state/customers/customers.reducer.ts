@@ -27,14 +27,12 @@ export function customersReducer(
 }
 
 // get the selectors
-const { selectIds, selectEntities, selectAll } = adapter.getSelectors();
-
-// select the array of widget ids
-export const selectCustomerIds = selectIds;
-
-// select the dictionary of widget entities
-export const selectCustomerEntities = selectEntities;
-
-// select the array of widgets
-export const selectAllCustomers = selectAll;
+export const {
+  // select the array of widget ids
+  selectIds: selectCustomerIds,
+  // select the dictionary of widget entities
+  selectEntities: selectCustomerEntities,
+  // select the array of widgets
+  selectAll: selectAllCustomers
+} = adapter.getSelectors();
 

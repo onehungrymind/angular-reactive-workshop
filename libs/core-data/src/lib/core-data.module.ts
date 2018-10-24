@@ -10,10 +10,6 @@ import { ProjectsService } from './projects/projects.service';
 import { ErrorInterceptor } from './error/error.interceptor';
 import { CustomersService } from './customers/customers.service';
 
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
-
 @NgModule({
   providers: [
     AuthService,

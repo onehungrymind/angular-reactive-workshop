@@ -1,42 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '@workshop/core-data';
 import { Observable } from 'rxjs';
-import { AuthService, NotificationsService } from '@workshop/core-data';
-
-import { ROUTER_ANIMATION } from './router-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: [ROUTER_ANIMATION]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Angular Core Workshop';
+  title = 'Angular Reactive Workshop';
   isLoggedIn$: Observable<boolean> = this.authService.isAuthenticated$;
+  isLoggedIn;
 
   links = [
     { path: '/projects', icon: 'work', label: 'Projects' }
   ];
 
   constructor(
-    private snackbar: MatSnackBar,
-    private ns: NotificationsService,
     private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.isLoggedIn$
+      .subscribe(loggedIn => {
+        const path = (loggedIn) ? '' : 'login';
+        this.isLoggedIn = loggedIn;
+        this.router.navigate([path]);
+      })
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['login']);
-  }
-
-  prepareRouterState(router: RouterOutlet) {
-    return router.activatedRouteData['animation'] || 'initial';
   }
 
   isSidenaveOpen(component, authentication) {

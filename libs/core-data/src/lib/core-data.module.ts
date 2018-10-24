@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { CustomersService } from './customers/customers.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { ProjectsService } from './projects/projects.service';
+import { StateModule } from './state/state.module';
 
 @NgModule({
   providers: [
@@ -16,6 +17,6 @@ import { ProjectsService } from './projects/projects.service';
     CustomersService,
     ProjectsService
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, StateModule],
 })
 export class CoreDataModule {}

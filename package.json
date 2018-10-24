@@ -42,6 +42,7 @@
     "@angular/router": "^6.1.0",
     "@auth0/angular-jwt": "^2.0.0",
     "@ngrx/effects": "6.1.0",
+    "@ngrx/entity": "^6.1.0",
     "@ngrx/router-store": "6.1.0",
     "@ngrx/store": "6.1.0",
     "@nrwl/nx": "6.4.0",

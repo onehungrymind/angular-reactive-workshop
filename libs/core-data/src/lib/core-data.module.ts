@@ -1,14 +1,13 @@
-import { AuthGuardService } from './auth/auth-guard.service';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
+import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
-import { TokenInterceptor } from './auth/token.interceptor';
+import { CustomersService } from './customers/customers.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { ProjectsService } from './projects/projects.service';
-import { ErrorInterceptor } from './error/error.interceptor';
-import { CustomersService } from './customers/customers.service';
+import { StateModule } from './state/state.module';
 
 @NgModule({
   providers: [
@@ -16,18 +15,12 @@ import { CustomersService } from './customers/customers.service';
     AuthGuardService,
     NotificationsService,
     CustomersService,
-    ProjectsService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    }
+    ProjectsService
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    StateModule
+  ],
 })
 export class CoreDataModule {}

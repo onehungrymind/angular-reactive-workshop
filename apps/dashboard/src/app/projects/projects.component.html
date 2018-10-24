@@ -9,7 +9,7 @@
 
   <div class="col-50">
     <app-project-details
-      [project]="currentProject"
+      [project]="currentProject$ | async"
       [customers]="customers$ | async"
       (saved)="saveProject($event)"
       (cancelled)="resetCurrentProject($event)">

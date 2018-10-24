@@ -1,5 +1,6 @@
 <div class="container">
   <div class="col-50">
+    <pre>{{projects$ | async | json}}</pre>
     <app-projects-list
       [projects]="projects$ | async"
       (selected)="selectProject($event)"

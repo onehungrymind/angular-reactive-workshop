@@ -9,8 +9,7 @@ const routes: Routes = [
   {
     path: '',
     component: ProjectsComponent,
-    canActivate: [AuthGuard],
-    data: { animation: 'projects' }
+    canActivate: [AuthGuard]
   }
 ];
 

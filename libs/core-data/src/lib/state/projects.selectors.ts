@@ -1,30 +1,20 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ProjectsState } from './projects.reducer';
+import { ProjectsState, projectsEntityQuery } from './projects.reducer';
 
 // Lookup the 'Projects' feature state managed by NgRx
 const getProjectsState = createFeatureSelector<ProjectsState>('projects');
 
-const getLoaded = createSelector(
-  getProjectsState,
-  (state: ProjectsState) => state.loaded
-);
-const getError = createSelector(
-  getProjectsState,
-  (state: ProjectsState) => state.error
-);
-
 const getAllProjects = createSelector(
   getProjectsState,
-  getLoaded,
-  (state: ProjectsState, isLoaded) => {
-    return isLoaded ? state.list : [];
-  }
+  projectsEntityQuery.selectAllProjects
 );
+
 const getSelectedId = createSelector(
   getProjectsState,
   (state: ProjectsState) => state.selectedId
 );
-const getSelectedProjects = createSelector(
+
+const getSelectedProject = createSelector(
   getAllProjects,
   getSelectedId,
   (projects, id) => {
@@ -33,9 +23,13 @@ const getSelectedProjects = createSelector(
   }
 );
 
+const getAllCustomers = createSelector(
+  getProjectsState,
+  (state: ProjectsState) => state.customers
+);
+
 export const projectsQuery = {
-  getLoaded,
-  getError,
   getAllProjects,
-  getSelectedProjects
+  getSelectedProject,
+  getAllCustomers
 };

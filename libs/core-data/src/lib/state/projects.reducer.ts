@@ -1,47 +1,85 @@
-import { ProjectsAction, ProjectsActionTypes } from './projects.actions';
+import { ProjectsActionTypes, ProjectsActions } from './projects.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Project } from '../projects/project.model';
+import { Customer } from '../customers/customer.model';
 
 export const PROJECTS_FEATURE_KEY = 'projects';
 
-/**
- * Interface for the 'Projects' data used in
- *  - ProjectsState, and
- *  - projectsReducer
- *
- *  Note: replace if already defined in another module
- */
-
-/* tslint:disable:no-empty-interface */
-export interface Entity {}
-
-export interface ProjectsState {
-  list: Entity[]; // list of Projects; analogous to a sql normalized table
+export interface ProjectsState extends EntityState<Project> {
   selectedId?: string | number; // which Projects record has been selected
-  loaded: boolean; // has the Projects list been loaded
-  error?: any; // last none error (if any)
+  customers?: Customer[];
 }
+
+export const adapter: EntityAdapter<Project> = createEntityAdapter<Project>();
 
 export interface ProjectsPartialState {
   readonly [PROJECTS_FEATURE_KEY]: ProjectsState;
 }
 
-export const initialState: ProjectsState = {
-  list: [],
-  loaded: false
-};
+export const initialState: ProjectsState = adapter.getInitialState({
+  // additional entity state properties
+  selectedId: null,
+  customers: []
+});
+
 
 export function projectsReducer(
   state: ProjectsState = initialState,
-  action: ProjectsAction
+  action: ProjectsActions
 ): ProjectsState {
   switch (action.type) {
+    case ProjectsActionTypes.ProjectSelected: {
+      return Object.assign({}, state, { selectedId: action.payload });
+    }
+
     case ProjectsActionTypes.ProjectsLoaded: {
-      state = {
-        ...state,
-        list: action.payload,
-        loaded: true
-      };
-      break;
+      return adapter.addAll(action.payload, state);
+    }
+
+    case ProjectsActionTypes.ProjectAdded: {
+      return adapter.addOne(action.payload, state);
+    }
+
+    case ProjectsActionTypes.ProjectUpdated: {
+      return adapter.upsertOne(action.payload, state);
+    }
+
+    case ProjectsActionTypes.ProjectDeleted: {
+      return adapter.removeOne(action.payload.id, state);
+    }
+
+    case ProjectsActionTypes.CustomersLoaded: {
+      return {...state, customers: action.payload};
     }
   }
   return state;
+}
+
+export const getSelectedProjectId = (state: ProjectsState) => state.selectedId;
+
+// get the selectors
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+} = adapter.getSelectors();
+
+// select the array of item ids
+const selectProjectIds = selectIds;
+
+// select the dictionary of item entities
+const selectProjectEntities = selectEntities;
+
+// select the array of items
+const selectAllProjects = selectAll;
+
+// select the total item count
+const selectProjectTotal = selectTotal;
+
+export const projectsEntityQuery = {
+  selectProjectIds,
+  selectProjectEntities,
+  selectAllProjects,
+  selectProjectTotal
 }

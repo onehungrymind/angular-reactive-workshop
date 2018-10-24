@@ -1,22 +1,55 @@
 import { Injectable } from '@angular/core';
 
-import { select, Store } from '@ngrx/store';
+import { select, Store, Action, ActionsSubject } from '@ngrx/store';
 
 import { ProjectsPartialState } from './projects.reducer';
 import { projectsQuery } from './projects.selectors';
-import { LoadProjects } from './projects.actions';
+import { LoadProjects, ProjectsActionTypes, ProjectSelected, AddProject, UpdateProject, DeleteProject, LoadCustomers } from './projects.actions';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectsFacade {
-  loaded$ = this.store.pipe(select(projectsQuery.getLoaded));
   allProjects$ = this.store.pipe(select(projectsQuery.getAllProjects));
-  selectedProjects$ = this.store.pipe(
-    select(projectsQuery.getSelectedProjects)
+  allCustomers$ = this.store.pipe(select(projectsQuery.getAllCustomers));
+  selectedProject$ = this.store.pipe(
+    select(projectsQuery.getSelectedProject)
   );
 
-  constructor(private store: Store<ProjectsPartialState>) {}
+  mutations$ = this.actions$.pipe(
+    filter(
+      (action: Action) =>
+        action.type === ProjectsActionTypes.AddProject ||
+        action.type === ProjectsActionTypes.UpdateProject ||
+        action.type === ProjectsActionTypes.DeleteProject
+    )
+  );
+
+  constructor(
+    private store: Store<ProjectsPartialState>,
+    private actions$: ActionsSubject
+  ) {}
+
+  selectProject(projectId) {
+    this.store.dispatch(new ProjectSelected(projectId));
+  }
 
   loadAll() {
     this.store.dispatch(new LoadProjects());
+  }
+
+  addProject(project) {
+    this.store.dispatch(new AddProject(project));
+  }
+
+  updateProject(project) {
+    this.store.dispatch(new UpdateProject(project));
+  }
+
+  deleteProject(project) {
+    this.store.dispatch(new DeleteProject(project));
+  }
+
+  loadCustomers() {
+    this.store.dispatch(new LoadCustomers());
   }
 }

@@ -1,9 +1,19 @@
-import { map } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Customer, Project, ProjectsService, NotificationsService, CustomersService, ProjectsState,
-  LoadProjects, AddProject, UpdateProject, DeleteProject, initialProjects, selectAllProjects } from '@workshop/core-data';
+import { select, Store } from '@ngrx/store';
+import {
+  AddProject,
+  Customer,
+  CustomersService,
+  DeleteProject,
+  LoadProjects,
+  NotificationsService,
+  Project,
+  ProjectsService,
+  ProjectsState,
+  selectAllProjects,
+  UpdateProject,
+} from '@workshop/core-data';
+import { Observable } from 'rxjs';
 
 
 const emptyProject: Project = {
@@ -56,7 +66,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjects() {
-    this.store.dispatch(new LoadProjects(initialProjects));
+    this.store.dispatch(new LoadProjects());
   }
 
   saveProject(project) {

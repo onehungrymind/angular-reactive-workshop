@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 import { map } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ import { ProjectsState } from './projects.reducer';
 
 @Injectable({providedIn: 'root'})
 export class ProjectsEffects {
-  @Effect() effect$ = this.actions$.ofType(ProjectsActionTypes.ProjectsAction);
+  @Effect() effect$ = this.actions$.pipe(ofType(ProjectsActionTypes.ProjectsAction));
 
   @Effect()
   loadProjects$ = this.dataPersistence.fetch(ProjectsActionTypes.LoadProjects, {

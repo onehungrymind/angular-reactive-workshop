@@ -47,16 +47,13 @@ export function projectsReducer(state = initialState, action: ProjectsActions): 
 export const getSelectedProjectId = (state: ProjectsState) => state.selectedProjectId;
 
 // get the selectors
-const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
-
-// select the array of project ids
-export const selectProjectIds = selectIds;
-
-// select the dictionary of project entities
-export const selectProjectEntities = selectEntities;
-
-// select the array of projects
-export const selectAllProjects = selectAll;
-
-// select the total project count
-export const selectProjectTotal = selectTotal;
+export const {
+  // select the array of project ids
+  selectIds: selectProjectIds,
+  // select the dictionary of project entities
+  selectEntities: selectProjectEntities,
+  // select the array of projects
+  selectAll: selectAllProjects,
+  // select the total project count
+  selectTotal: selectProjectTotal
+} = adapter.getSelectors();

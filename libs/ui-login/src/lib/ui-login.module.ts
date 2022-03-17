@@ -9,9 +9,8 @@ import { LoginComponent } from './login/login.component';
 export const uiLoginRoutes: Route[] = [];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, MaterialModule, RouterModule],
-  declarations: [LoginComponent],
-  entryComponents: [LoginComponent],
-  exports: [LoginComponent]
+    imports: [CommonModule, FormsModule, MaterialModule, RouterModule],
+    declarations: [LoginComponent],
+    exports: [LoginComponent]
 })
 export class UiLoginModule {}

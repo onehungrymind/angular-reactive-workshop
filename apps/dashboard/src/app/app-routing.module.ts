@@ -4,7 +4,7 @@ import { LoginComponent } from '@workshop/ui-login';
 
 const routes: Routes = [
   {path: '', redirectTo: 'projects', pathMatch: 'full'},
-  {path: 'projects', loadChildren: './projects/projects.module#ProjectsModule'},
+  {path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

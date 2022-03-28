@@ -8,6 +8,7 @@ import { CustomersService } from './customers/customers.service';
 import { NotificationsService } from './notifications/notifications.service';
 import { ProjectsService } from './projects/projects.service';
 import { StateModule } from './state/state.module';
+import { MaterialModule } from '@workshop/material';
 
 @NgModule({
   providers: [
@@ -15,7 +16,8 @@ import { StateModule } from './state/state.module';
     AuthGuardService,
     NotificationsService,
     CustomersService,
-    ProjectsService
+    ProjectsService,
+    MaterialModule
   ],
   imports: [
     CommonModule,

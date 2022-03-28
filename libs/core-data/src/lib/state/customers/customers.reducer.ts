@@ -18,7 +18,7 @@ export function customersReducer(
 ): CustomersState {
   switch (action.type) {
     case CustomersActionTypes.CustomersLoaded: {
-      return adapter.addAll(action.payload, state);
+      return adapter.addMany(action.payload, state);
     }
 
     default:

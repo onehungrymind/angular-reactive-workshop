@@ -51,6 +51,7 @@
               "apps/dashboard/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "apps/dashboard/src/styles.scss"
             ],
             "scripts": []
@@ -66,7 +67,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -99,9 +99,6 @@
             "polyfills": "apps/dashboard/src/polyfills.ts",
             "tsConfig": "apps/dashboard/tsconfig.spec.json",
             "karmaConfig": "apps/dashboard/karma.conf.js",
-            "styles": [
-              "apps/dashboard/src/styles.scss"
-            ],
             "scripts": [],
             "assets": [
               "apps/dashboard/src/favicon.ico",

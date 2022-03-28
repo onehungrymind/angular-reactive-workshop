@@ -24,7 +24,7 @@ export function projectsReducer(state = initialState, action: ProjectsActions): 
     }
 
     case ProjectsActionTypes.ProjectsLoaded: {
-      return adapter.addAll(action.payload, state);
+      return adapter.addMany(action.payload, state);
     }
 
     case ProjectsActionTypes.ProjectAdded: {
